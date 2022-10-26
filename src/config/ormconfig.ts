@@ -1,17 +1,24 @@
 import { DataSource } from 'typeorm';
+import * as dotenv from 'dotenv';
 import * as glob from 'fast-glob';
+import * as path from 'path';
+
+const env = dotenv.config({
+  path: __dirname + `../../../.env.${process.env.NODE_ENV}`,
+}).parsed;
 
 const entities = glob.sync('dist/**/*.entity.js');
 
-export function typeormConfig(): DataSource {
-  return new DataSource({
-    type: 'mysql',
-    host: process.env.HOST,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE,
-    entities,
-    migrations: ['dist/migrations/*{.ts,.js}'],
-  });
-}
+const typeormConfig: DataSource = new DataSource({
+  type: 'mysql',
+  host: env?.HOST,
+  port: Number(env?.DB_PORT),
+  username: env?.DATABASE_USER,
+  password: env?.DATABASE_PASSWORD,
+  database: env?.DATABASE,
+  entities,
+  migrations: ['dist/migrations/*{.ts,.js}'],
+  synchronize: false,
+});
+
+export default typeormConfig;
