@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { typeormConfig } from './config/ormconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({ ...typeormConfig().options }),
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
