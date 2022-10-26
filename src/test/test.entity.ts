@@ -6,7 +6,7 @@ export class Role {
   id: number;
 
   @Column()
-  namefull: string;
+  name: string;
 
   @Column({ type: 'simple-array', nullable: true })
   acl: string[];

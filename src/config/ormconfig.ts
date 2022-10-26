@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import * as glob from 'fast-glob';
-import * as path from 'path';
 
 const env = dotenv.config({
   path: __dirname + `../../../.env.${process.env.NODE_ENV}`,
